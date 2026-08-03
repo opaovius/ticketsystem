@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+<link rel="stylesheet" href="/css/darkmode.css">
+<head>
+<meta charset="UTF-8">
+<title>Neues Ticket</title>
+</head>
+<body>
+
+	<div class="container">
+		<div class="d-flex justify-content-between align-items-center mb-4">
+			<h2>Neues Ticket erstellen</h2>
+
+			<button type="button" class="btn btn-primary" onclick="createTicket()" >Absenden</button>
+
+		</div>
+
+		<div class="mb-3">
+			<label for="header" class="form-label">Titel</label>
+			<input id="header" type="text" class="form-control" placeholder="Titel">
+		</div>
+
+		<div class="mb-3">
+			<label for="text" class="form-label">Ihre Anfrage</label>
+			<textarea id="text" class="form-control" rows="6" placeholder="Beschreiben Sie Ihr Anliegen"></textarea>
+		</div>
+		
+		<div>
+		<button type="button" class="btn btn-danger" onclick="cancel()">Abbruch</button>
+		</div>
+
+	</div>
+
+	<script src="/js/api.js"></script>
+	<script src="/js/createTicket.js"></script>
+</body>
+</html>
