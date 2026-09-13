@@ -1,0 +1,15 @@
+spring:
+   application: 
+      name: ticket
+   datasource:
+      url: ${url}
+      username: ${username}
+      password: ${password}
+   jpa:
+      show-sql: true
+      hibernate:
+         ddl-auto: validate
+   jwt:
+      secret: ${JWT_SECRET}
+      accessTokenExpiration: 300 #5min
+      refreshTokenExpiration: 604800 #7d
