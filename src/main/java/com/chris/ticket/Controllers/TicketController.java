@@ -43,6 +43,14 @@ public class TicketController {
 		return ResponseEntity.ok(ticketDtos);
 	}
 	
+	@GetMapping("/admin")
+	public ResponseEntity<List<TicketDto>> getAllAdminTickets(Authentication auth){
+		
+		var ticketDtos = ticketSer.getAllTicketsOfAdmin(auth);
+		
+		return ResponseEntity.ok(ticketDtos);
+	}
+	
 	@PostMapping("/customer/create")
 	public ResponseEntity<TicketDto> createTicket(@Valid @RequestBody CreateTicketRequest request){
 		

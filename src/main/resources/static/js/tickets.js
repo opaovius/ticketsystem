@@ -1,12 +1,29 @@
 async function loadTickets() {
     try {
         const role = getRoleFromToken();
-        const endpoint = role === "SUPPORT" ? "/tickets/support" : "/tickets/customer";
+        let endpoint;
+		
+		if(role == "ADMIN"){
+			endpoint = "/tickets/admin";
+		}
+		else if(role == "SUPPORT"){
+			endpoint = "/tickets/support";
+		}
+		else{
+			endpoint = "/tickets/customer";
+		}
 		
 		//Support soll keine tickets erstellen
 		if(role == "SUPPORT"){
-			const button = document.getElementById("createTicketBtn");
+			const button = document.getElementById("topButton");
 			button.style.display = "none";
+		}
+		
+		//Admin soll Users verwalten koennen
+		if(role == "ADMIN"){
+			const button = document.getElementById("topButton");
+			button.textContent = "Nutzer Verwalten";
+			button.onclick = () => redirectToManageUsers();
 		}
 
         const response = await fetchWithAuth(endpoint);
@@ -98,6 +115,10 @@ function createHeaderLinkCell(ticket) {
 
     td.appendChild(link);
     return td;
+}
+
+function redirectToManageUsers(){
+		window.location.href = "/html/manageUsers.html";
 }
 
 loadTickets();

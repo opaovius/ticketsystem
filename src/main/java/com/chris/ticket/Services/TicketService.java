@@ -72,6 +72,15 @@ public class TicketService {
 	            .toList();
 	}
 	
+	public List<TicketDto> getAllTicketsOfAdmin(Authentication auth){
+		
+	return ticketRep.findAll()
+			.stream()
+			.map(ticketMap::toDto)
+			.toList();
+		
+	}
+	
 	public TicketDto updateStatus(Long id) {
 		
 		var user = securitySer.getCurrentUser();

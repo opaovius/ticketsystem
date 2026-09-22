@@ -75,9 +75,10 @@ public class SecurityConfig {
 				.requestMatchers("/admin/**").hasRole(Role.ADMIN.name())
 				.requestMatchers("/tickets/customer/**").hasRole(Role.CUSTOMER.name())
 				.requestMatchers("/tickets/support/**").hasRole(Role.SUPPORT.name())
-				.requestMatchers("/tickets/*").hasAnyRole(Role.CUSTOMER.name(),Role.SUPPORT.name())
-				.requestMatchers("/reply/**").hasAnyRole(Role.CUSTOMER.name(),Role.SUPPORT.name())
-				.requestMatchers(HttpMethod.POST,"/users").permitAll()
+				.requestMatchers("/tickets/admin/**").hasRole(Role.ADMIN.name())
+				.requestMatchers("/tickets/*").authenticated()
+				.requestMatchers("/reply/**").authenticated()
+				.requestMatchers(HttpMethod.POST,"/users").permitAll() //Rolle wird automatisch auf customer gesetzt
 				.requestMatchers(HttpMethod.POST,"/auth/login").permitAll()
 				.requestMatchers(HttpMethod.POST,"/auth/refresh").permitAll()
 				.requestMatchers(HttpMethod.POST,"/auth/logout").permitAll()

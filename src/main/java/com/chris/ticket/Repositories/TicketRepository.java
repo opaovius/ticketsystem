@@ -8,8 +8,8 @@ import com.chris.ticket.Entities.Ticket;
 
 public interface TicketRepository extends CrudRepository<Ticket, Long> {
 
-	List<Ticket> findAllByUser_Id(Long userId);
-
+	List<Ticket> findAll();
+	
 	List<Ticket> findByUser_Id(Long userId);
 
 	List<Ticket> findBySupporter_Id(Long userId);
