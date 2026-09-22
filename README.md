@@ -4,10 +4,13 @@ Ein rollenbasiertes Ticketsystem, welches als Backend Spring Boot und als Fronte
 
 Ich nutze das Projekt, um Spring Boot in Kombination mit Frontend zu lernen. Es ist daher nur ein Spaß- und Lernprojekt und nicht für den produktiven Einsatz gedacht. Falls man es ohne lokale Installation austesten möchte geht dies auf meiner [Website](https://ticket.opaovi.de/html/login.html)
 
-Test-User-EMail: 	peter@mail.com
-Test-Support-EMail: Sup@mail.de
-					Sup2@mail.de
-Test-Password: 		password1 (bei allen drei gleich)
+Test-User-EMail: 		peter@mail.com 
+
+Test-Support-EMail: 	Sup@mail.de
+
+Test-Support-EMail2:	Sup2@mail.de
+					
+Test-Password: 			password1 (bei allen drei gleich)
 
 # Installation
 
