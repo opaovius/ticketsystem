@@ -1,5 +1,6 @@
 package com.chris.ticket.Controllers;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import com.chris.ticket.Dtos.UserDtos.ChangePasswordRequest;
+import com.chris.ticket.Dtos.UserDtos.GetUsersRequest;
 import com.chris.ticket.Dtos.UserDtos.RegisterUserRequest;
 import com.chris.ticket.Dtos.UserDtos.UpdateUserRequest;
 import com.chris.ticket.Dtos.UserDtos.UserDto;
@@ -39,15 +41,17 @@ public class UserController {
 	private final PasswordEncoder passwordEncoder;
 
 	@GetMapping
-	public Iterable<UserDto> getAllUsers(
+	public ResponseEntity<List<GetUsersRequest>> getAllUsers(
 			@RequestParam(required = false, defaultValue = "", name = "sort") String sortBy) {
 
 		// Parameter setzen, falls ungueltiger Ausdruck
-		if (!Set.of("name", "email").contains(sortBy)) {
+		if (!Set.of("name", "email", "id", "role").contains(sortBy)) {
 			sortBy = "name";
 		}
 
-		return userRepository.findAll(Sort.by(sortBy)).stream().map(userMapper::toDto).toList();
+		IO.println(sortBy);
+		
+		return ResponseEntity.ok(userRepository.findAll(Sort.by(sortBy)).stream().map(userMapper::toGetUserRequest).toList());
 	}
 
 	// Abfragen eines bestimmten User mit einer id
@@ -67,10 +71,10 @@ public class UserController {
 	public ResponseEntity<?> registerUser(@Valid @RequestBody RegisterUserRequest request,
 			UriComponentsBuilder uriBuilder) {
 
-		if(userRepository.existsByEmail(request.getEmail())) {
-			return ResponseEntity.badRequest().body(Map.of("email","Email is already registered"));
+		if (userRepository.existsByEmail(request.getEmail())) {
+			return ResponseEntity.badRequest().body(Map.of("email", "Email is already registered"));
 		}
-		
+
 		var user = userMapper.toEntity(request);
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		user.setRole(Role.CUSTOMER);
@@ -113,7 +117,7 @@ public class UserController {
 		return ResponseEntity.noContent().build();
 	}
 
-	//Aendern des Passwortes eines Users
+	// Aendern des Passwortes eines Users
 	@PostMapping("/{id}/change-password")
 	public ResponseEntity<Void> changePassword(@PathVariable Long id, @RequestBody ChangePasswordRequest request) {
 
@@ -122,11 +126,11 @@ public class UserController {
 		if (user == null) {
 			return ResponseEntity.notFound().build();
 		}
-		
-		if(!user.getPassword().equals(request.getOldPassword())) {
+
+		if (!user.getPassword().equals(request.getOldPassword())) {
 			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 		}
-		
+
 		user.setPassword(request.getNewPassword());
 		userRepository.save(user);
 		return ResponseEntity.noContent().build();

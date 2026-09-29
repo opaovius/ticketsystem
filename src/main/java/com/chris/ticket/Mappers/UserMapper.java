@@ -3,6 +3,7 @@ package com.chris.ticket.Mappers;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
 
+import com.chris.ticket.Dtos.UserDtos.GetUsersRequest;
 import com.chris.ticket.Dtos.UserDtos.RegisterUserRequest;
 import com.chris.ticket.Dtos.UserDtos.UpdateUserRequest;
 import com.chris.ticket.Dtos.UserDtos.UserDto;
@@ -16,5 +17,7 @@ public interface UserMapper {
 	User toEntity(RegisterUserRequest request);
 	
 	void update(UpdateUserRequest request, @MappingTarget User user);
+	
+	GetUsersRequest toGetUserRequest(User user);
 	
 }

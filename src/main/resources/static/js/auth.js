@@ -1,3 +1,12 @@
+const form = document.getElementById("loginForm");
+if (form) {
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    login();
+  });
+}
+
+
 function login() {
 
     const email = document.getElementById("email").value;
