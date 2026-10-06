@@ -26,10 +26,13 @@ public class User {
 	
 	private String name;
 	
+	@ToString.Exclude
 	private String password;
 	
 	private String email;
 	
 	@Enumerated(EnumType.STRING)
 	private Role role;
+	
+	private Byte passwordSet;
 }

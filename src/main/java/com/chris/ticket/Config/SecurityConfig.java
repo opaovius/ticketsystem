@@ -78,7 +78,7 @@ public class SecurityConfig {
 				.requestMatchers("/tickets/admin/**").hasRole(Role.ADMIN.name())
 				.requestMatchers("/tickets/*").authenticated()
 				.requestMatchers("/reply/**").authenticated()
-				.requestMatchers("/users/**").hasRole(Role.ADMIN.name())
+				.requestMatchers("/users/register").hasRole(Role.ADMIN.name())
 				.requestMatchers(HttpMethod.POST,"/users").permitAll() //Rolle wird automatisch auf customer gesetzt
 				.requestMatchers(HttpMethod.POST,"/auth/login").permitAll()
 				.requestMatchers(HttpMethod.POST,"/auth/refresh").permitAll()

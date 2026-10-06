@@ -22,11 +22,12 @@ import org.springframework.web.util.UriComponentsBuilder;
 import com.chris.ticket.Dtos.UserDtos.ChangePasswordRequest;
 import com.chris.ticket.Dtos.UserDtos.GetUsersRequest;
 import com.chris.ticket.Dtos.UserDtos.RegisterUserRequest;
+import com.chris.ticket.Dtos.UserDtos.RegisterUserResponse;
 import com.chris.ticket.Dtos.UserDtos.UpdateUserRequest;
 import com.chris.ticket.Dtos.UserDtos.UserDto;
-import com.chris.ticket.Entities.Role;
 import com.chris.ticket.Mappers.UserMapper;
 import com.chris.ticket.Repositories.UserRepository;
+import com.chris.ticket.Util.PasswordGen;
 
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -49,9 +50,8 @@ public class UserController {
 			sortBy = "name";
 		}
 
-		IO.println(sortBy);
-		
-		return ResponseEntity.ok(userRepository.findAll(Sort.by(sortBy)).stream().map(userMapper::toGetUserRequest).toList());
+		return ResponseEntity
+				.ok(userRepository.findAll(Sort.by(sortBy)).stream().map(userMapper::toGetUserRequest).toList());
 	}
 
 	// Abfragen eines bestimmten User mit einer id
@@ -67,7 +67,7 @@ public class UserController {
 	}
 
 	// Erstellen eines neuen Users
-	@PostMapping
+	@PostMapping("/register")
 	public ResponseEntity<?> registerUser(@Valid @RequestBody RegisterUserRequest request,
 			UriComponentsBuilder uriBuilder) {
 
@@ -76,15 +76,22 @@ public class UserController {
 		}
 
 		var user = userMapper.toEntity(request);
-		user.setPassword(passwordEncoder.encode(user.getPassword()));
-		user.setRole(Role.CUSTOMER);
 
+		//Passwort generieren
+		String tempPass = PasswordGen.generate(16);
+		
+		//passwort hashen fuer user
+		user.setPassword(passwordEncoder.encode(tempPass));
+		user.setPasswordSet((byte) 0);
+		
 		userRepository.save(user);
+
+		IO.println(user.getName() + "|" + user.getEmail() + "|" + user.getPassword() + "|" + user.getRole());
 
 		var userDto = userMapper.toDto(user);
 		var uri = uriBuilder.path("/users/{id}").buildAndExpand(userDto.getId()).toUri();
 
-		return ResponseEntity.created(uri).body(userDto);
+		return ResponseEntity.created(uri).body(new RegisterUserResponse(userDto,tempPass));
 	}
 
 	@PutMapping("/{id}")

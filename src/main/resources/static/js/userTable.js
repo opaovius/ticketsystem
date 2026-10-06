@@ -50,4 +50,8 @@ function renderUserTable(userList) {
 
 }
 
+function redirectAddUser(){
+		window.location.href = "/html/addUser.html";
+}
+
 loadUsers();

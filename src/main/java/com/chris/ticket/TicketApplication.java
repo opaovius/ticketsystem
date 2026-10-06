@@ -1,7 +1,5 @@
 package com.chris.ticket;
 
-import java.util.ArrayList;
-
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
@@ -20,7 +18,7 @@ public class TicketApplication {
 		ApplicationContext cont =  SpringApplication.run(TicketApplication.class, args);
 		
 		
-		var user = new User(null, "John", "1234", "John@mail.com", Role.CUSTOMER);
+		var user = new User(null, "John", "1234", "John@mail.com", Role.CUSTOMER, (byte) 1);
 		
 		var ticket = new Ticket(null, "text", "header", 0, null, null, user);
 		
