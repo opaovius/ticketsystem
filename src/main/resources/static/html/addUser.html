@@ -6,36 +6,59 @@
 </head>
 <link rel="stylesheet" href="/css/bootstrap.min.css">
 <link rel="stylesheet" href="/css/darkmode.css">
+<link rel="stylesheet" href="/css/general.css">
 <body>
 
 	<div class="container">
 
 		<a href="/html/manageUsers.html"
-			class="btn btn-outline-primary btn-sm mb-3 mt-3">&larr; Zurück zur
+			class="btn btn-outline-primary btn-sm mb-3">&larr; Zurück zur
 			Übersicht</a>
-			
-		<div class="d-flex flex-column align-items-center">	
-		
-		<form id="addUserForm" class="d-flex flex-column mt-3">
-		
-			<input id="name" class="form-control" name="name" placeholder="Name">
-			<input id="email" class="form-control" name="email" placeholder="Email">
-			
-			<select class="form-select" name="role">
-			<option value="" selected>Rolle auswählen</option>
-			<option value="CUSTOMER">Kunde</option>
-			<option value="SUPPORT">Supporter</option>
-			<option value="Admin">Admin</option>
-			
-			</select>
 
-			<button type="submit" class="btn btn-primary">Nutzer erstellen</button>
-		</form>
+		<div class="d-flex flex-column align-items-center">
+
+			<form id="addUserForm" class="d-flex flex-column mt-3">
+
+				<input id="name" class="form-control" name="name" placeholder="Name">
+				<input id="email" class="form-control" name="email"
+					placeholder="Email"> <select class="form-select"
+					name="role">
+					<option value="" selected>Rolle auswählen</option>
+					<option value="CUSTOMER">Kunde</option>
+					<option value="SUPPORT">Supporter</option>
+					<option value="Admin">Admin</option>
+
+				</select>
+
+				<button type="submit" class="btn btn-primary">Nutzer
+					erstellen</button>
+
+			</form>
+
+			<dialog class="dialog" id="passwordDialog">
+
+			<h2 id="diaHeader">Nutzer erstellt</h2>
+
+			<p>Passwort bitte speichern und dem Nutzer übergeben!</p>
+
+			<strong id="passwordText"></strong> <br></br>
+
+			<div class="d-flex justify-content-between">
+
+				<button id="copyBtn" type="button" class="btn btn-outline-primary"
+					onclick="copyPassword()">Passwort kopieren</button>
+
+				<button type="button" class="btn btn-danger"
+					onclick="passwordDialog.close()">Schließen</button>
+
+			</div>
+
+			</dialog>
 
 		</div>
 
 	</div>
-	
+
 	<script src="/js/api.js"></script>
 	<script src="/js/addUser.js"></script>
 
