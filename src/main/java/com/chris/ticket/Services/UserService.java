@@ -29,12 +29,20 @@ import com.chris.ticket.Util.PasswordGen;
 import lombok.AllArgsConstructor;
 
 @Service
-@AllArgsConstructor
 public class UserService implements UserDetailsService {
 
 	private final UserRepository userRep;
 	private final PasswordEncoder passwordEncoder;
 	private final UserMapper userMap;
+	
+	public UserService(
+            UserRepository userRep,
+            PasswordEncoder passwordEncoder,
+            UserMapper userMap) {
+        this.userRep = userRep;
+        this.passwordEncoder = passwordEncoder;
+        this.userMap = userMap;
+    }
 
 	@Override
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
@@ -113,7 +121,7 @@ public class UserService implements UserDetailsService {
 			throw new ChangePasswordMismatchException("Altes Passwort stimmt nicht!");
 		}
 
-		user.setPassword(request.getNewPassword());
+		user.setPassword(passwordEncoder.encode(request.getNewPassword()));
 		userRep.save(user);
 	}
 

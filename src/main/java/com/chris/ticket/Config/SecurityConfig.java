@@ -23,12 +23,20 @@ import lombok.AllArgsConstructor;
 
 @Configuration
 @EnableWebSecurity
-@AllArgsConstructor
 public class SecurityConfig {
 	
 	private final UserDetailsService userDetailsService;
 	private final JwtAuthenticationFilter jwtAuthenticationFilter;
 	private final PasswordConfig passConf;
+	
+	public SecurityConfig(
+            UserDetailsService userDetailsService,
+            JwtAuthenticationFilter jwtAuthenticationFilter,
+            PasswordConfig passConf) {
+        this.userDetailsService = userDetailsService;
+        this.jwtAuthenticationFilter = jwtAuthenticationFilter;
+        this.passConf = passConf;
+    }
 	
 	@Bean
 	AuthenticationProvider authenticationProvider() {
@@ -41,13 +49,7 @@ public class SecurityConfig {
 	AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception{
 		return config.getAuthenticationManager();
 	}
-	
-	/*
-	@Bean
-	PasswordEncoder passwordEncoder() {
-		return new BCryptPasswordEncoder();
-	}
-	*/
+
 	/*
 	@Bean
 	SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
@@ -96,33 +98,4 @@ public class SecurityConfig {
 	
 	return http.build();
 	}
-	
-	
-	/*
-	@Bean
-	SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
-		
-		http
-			.sessionManagement(c -> c.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-			.csrf(c -> c.disable())
-			.authorizeHttpRequests(c -> c
-					.requestMatchers("/start/**").permitAll()
-					.requestMatchers("/favicon.ico","/favicon**", "/favicon.ico/**").permitAll()
-					.requestMatchers("/admin/**").hasRole(Role.ADMIN.name())
-					.requestMatchers("/tickets/customer/**").hasRole(Role.CUSTOMER.name())
-					.requestMatchers(HttpMethod.POST,"/users").permitAll()
-					.requestMatchers(HttpMethod.POST,"/auth/login").permitAll()
-					.requestMatchers(HttpMethod.POST,"/auth/refresh").permitAll()
-					.requestMatchers("/js/**").permitAll()
-					.requestMatchers("/html/**").permitAll()
-					.anyRequest().authenticated())
-			.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
-			.exceptionHandling(c -> {c.authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED));
-									c.accessDeniedHandler((request, response, accessDeniedException) -> 
-									response.setStatus(HttpStatus.FORBIDDEN.value()));
-									});
-		
-		return http.build();
-	}
-	*/
 }
