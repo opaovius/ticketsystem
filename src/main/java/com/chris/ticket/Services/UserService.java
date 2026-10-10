@@ -29,20 +29,12 @@ import com.chris.ticket.Util.PasswordGen;
 import lombok.AllArgsConstructor;
 
 @Service
+@AllArgsConstructor
 public class UserService implements UserDetailsService {
 
 	private final UserRepository userRep;
 	private final PasswordEncoder passwordEncoder;
 	private final UserMapper userMap;
-	
-	public UserService(
-            UserRepository userRep,
-            PasswordEncoder passwordEncoder,
-            UserMapper userMap) {
-        this.userRep = userRep;
-        this.passwordEncoder = passwordEncoder;
-        this.userMap = userMap;
-    }
 
 	@Override
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
@@ -124,14 +116,29 @@ public class UserService implements UserDetailsService {
 		user.setPassword(passwordEncoder.encode(request.getNewPassword()));
 		userRep.save(user);
 	}
+	
+	public Boolean getPasswordSet(Authentication auth) {
+		
+		var user = userRep.findById(Long.valueOf(auth.getName()))
+				.orElseThrow(() -> new UsernameNotFoundException("Nutzer konnte nicht gefunden werden"));
+		
+		if(user.getPasswordSet() == (byte) 1) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
 
 	public UserDto setPassword(Authentication auth, SetPasswordRequest request) {
+		
+		IO.println("HIER: " + request.getNewPassword());
 
 		var user = userRep.findById(Long.valueOf(auth.getName()))
 				.orElseThrow(() -> new UsernameNotFoundException("Nutzer konnte nicht gefunden werden"));
 
 		user.setPasswordSet((byte) 1);
-		user.setPassword(passwordEncoder.encode(request.getPassword()));
+		user.setPassword(passwordEncoder.encode(request.getNewPassword()));
 
 		user = userRep.save(user);
 

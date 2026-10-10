@@ -83,10 +83,17 @@ public class UserController {
 		
 		return ResponseEntity.noContent().build();
 	}
-
+	
 	@GetMapping("/setPassword")
+	public ResponseEntity<Boolean> getPasswordSet(Authentication auth){
+		
+		return ResponseEntity.ok(userSer.getPasswordSet(auth));
+	}
+
+	@PostMapping("/setPassword")
 	public ResponseEntity<UserDto> setPassword(Authentication auth, @RequestBody SetPasswordRequest request) {
 
 		return ResponseEntity.ok(userSer.setPassword(auth, request));
 	}
+	
 }

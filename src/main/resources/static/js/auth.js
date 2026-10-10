@@ -1,13 +1,13 @@
 const form = document.getElementById("loginForm");
 if (form) {
-  form.addEventListener("submit", (e) => {
-    e.preventDefault();
-    login();
-  });
+    form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        login();
+    });
 }
 
 
-function login() {
+async function login() {
 
     const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;
@@ -22,18 +22,33 @@ function login() {
             password: password
         })
     })
-    .then(res => res.json())
-    .then(data => {
+        .then(res => res.json())
+        .then(async data => {
 
-        // JWT speichern
-        localStorage.setItem("token", data.token);
+            // JWT speichern
+            localStorage.setItem("token", data.token);
 
-        // weiterleiten
-        window.location.href = "/html/ticketsTable.html";
-    })
-    .catch(err => {
-        console.error("Login Fehler:", err);
-    });
+            const response = await fetchWithAuth("/users/setPassword");
+
+            if (!response.ok) {
+                throw new Error("PasswordSet konnte nicht geladen werden");
+            }
+
+            const passwordSet = await response.json();
+
+            console.log("PASSWORD_SET: " + passwordSet);
+
+            if (passwordSet) {
+                window.location.href = "/html/ticketsTable.html";
+            }
+            else {
+                window.location.href = "/html/setPassword.html";
+            }
+
+        })
+        .catch(err => {
+            console.error("Login Fehler:", err);
+        });
 }
 
 async function logout() {

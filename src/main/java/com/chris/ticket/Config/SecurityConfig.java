@@ -22,6 +22,7 @@ import com.chris.ticket.Filters.JwtAuthenticationFilter;
 import lombok.AllArgsConstructor;
 
 @Configuration
+@AllArgsConstructor
 @EnableWebSecurity
 public class SecurityConfig {
 	
@@ -29,14 +30,6 @@ public class SecurityConfig {
 	private final JwtAuthenticationFilter jwtAuthenticationFilter;
 	private final PasswordConfig passConf;
 	
-	public SecurityConfig(
-            UserDetailsService userDetailsService,
-            JwtAuthenticationFilter jwtAuthenticationFilter,
-            PasswordConfig passConf) {
-        this.userDetailsService = userDetailsService;
-        this.jwtAuthenticationFilter = jwtAuthenticationFilter;
-        this.passConf = passConf;
-    }
 	
 	@Bean
 	AuthenticationProvider authenticationProvider() {
@@ -81,6 +74,7 @@ public class SecurityConfig {
 				.requestMatchers("/tickets/*").authenticated()
 				.requestMatchers("/reply/**").authenticated()
 				.requestMatchers("/users/register").hasRole(Role.ADMIN.name())
+				.requestMatchers("/users/setPassword").authenticated()
 				.requestMatchers(HttpMethod.POST,"/users").permitAll() //Rolle wird automatisch auf customer gesetzt
 				.requestMatchers(HttpMethod.POST,"/auth/login").permitAll()
 				.requestMatchers(HttpMethod.POST,"/auth/refresh").permitAll()

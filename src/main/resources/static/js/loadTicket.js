@@ -1,9 +1,9 @@
 async function loadSingleTicket() {
 
 
-	const role = getRoleFromToken();
-	
-	//Kunde soll ticket nicht selber schliessen koennen
+    const role = getRoleFromToken();
+
+    //Kunde soll ticket nicht selber schliessen koennen
     if (role == "CUSTOMER") {
         const button = document.getElementById("closeBtn");
         button.style.display = "none";
@@ -20,11 +20,12 @@ async function loadSingleTicket() {
     try {
         //ticket aus datenbank holen
         const response = await fetchWithAuth(`/tickets/${id}`);
-        const ticket = await response.json();
 
         if (!response.ok) {
             throw new Error("Fehler beim Laden: " + response.status);
         }
+
+        const ticket = await response.json();
 
         //ticket rendern
         document.getElementById("Header").textContent = ticket.header;

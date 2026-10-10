@@ -7,5 +7,5 @@ import lombok.ToString;
 public class SetPasswordRequest {
 
 	@ToString.Exclude
-	private String password;
+	private String newPassword;
 }
