@@ -6,9 +6,11 @@ Ich nutze das Projekt, um Spring Boot in Kombination mit Frontend zu lernen. Es 
 
 Test-User-EMail: 		peter@mail.com 
 
-Test-Support-EMail: 	Sup@mail.de
+Test-Support-EMail: 	Sup@mail.com
 
-Test-Support-EMail2:	Sup2@mail.de
+Test-Support-EMail2:	Sup2@mail.com
+
+Test-Admin:				AdminMan@mail.com
 					
 Test-Password: 			password1 (bei allen drei gleich)
 
@@ -32,9 +34,13 @@ Test-Password: 			password1 (bei allen drei gleich)
 | POST | `/tickets/customer/create` | Neues Ticket erstellen | CUSTOMER |
 | PUT | `/tickets/updateStatus/{id}` | Ticketstatus aktualisieren | CUSTOMER, SUPPORT |
 | POST | `/reply/create` | Antwort auf ein Ticket verfassen | CUSTOMER, SUPPORT |
+| GET | `/users` | Gibt alle Nutzer aus | Admin |
+| POST | `/users/register` | Registriert neuen Nutzer | Admin |
+| GET | `/users/setPassword` | Gibt Wert von PasswortSet aus | authentifiziert |
+| POST | `/users/setPassword` | Setzt Wert von PasswortSet auf TRUE | authentifiziert |
 
 # Zukunft
 
-- Admin Rolle einfügen
+- Visuelles Feedback bei falschen eingaben (Bisher nur bei F12 sichtbar)
 - Gelöste Tickets optional ausblenden können
 - Sortieren der Tickets zB nach Status
