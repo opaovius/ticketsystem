@@ -18,6 +18,6 @@ public interface UserMapper {
 	
 	void update(UpdateUserRequest request, @MappingTarget User user);
 	
-	GetUsersRequest toGetUserRequest(User user);
+	GetUsersRequest toGetUsersRequest(User user);
 	
 }

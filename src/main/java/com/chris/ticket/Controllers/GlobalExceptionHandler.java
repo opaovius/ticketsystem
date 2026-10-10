@@ -9,6 +9,8 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import com.chris.ticket.Exceptions.ChangePasswordMismatchException;
+import com.chris.ticket.Exceptions.EmailAlreadyRegisteredException;
 import com.chris.ticket.Exceptions.TicketNotFoundException;
 
 @ControllerAdvice
@@ -29,4 +31,14 @@ public class GlobalExceptionHandler {
     public ResponseEntity<String> handleTicketNotFound(TicketNotFoundException exception) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exception.getMessage());
     }
+	
+	@ExceptionHandler(EmailAlreadyRegisteredException.class)
+	public ResponseEntity<String> handleEmailAlreadyRegistered(EmailAlreadyRegisteredException exception){
+		return ResponseEntity.status(HttpStatus.CONFLICT).body(exception.getMessage());
+	}
+	
+	@ExceptionHandler(ChangePasswordMismatchException.class)
+	public ResponseEntity<String> handleChangePasswordMismatch(ChangePasswordMismatchException exception){
+		return ResponseEntity.status(HttpStatus.CONFLICT).body(exception.getMessage());
+	}
 }

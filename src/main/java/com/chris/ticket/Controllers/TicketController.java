@@ -55,11 +55,11 @@ public class TicketController {
 	public ResponseEntity<TicketDto> createTicket(@Valid @RequestBody CreateTicketRequest request){
 		
 		return  ResponseEntity.ok(ticketSer.createTicket(request));
-		
 	}
 	
 	@GetMapping("/{id}")
 	public ResponseEntity<GetTicketRequest> getTicket(@PathVariable Long id){
+		
 		return ResponseEntity.ok(ticketSer.getTicketById(id));
 	}
 	
