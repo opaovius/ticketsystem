@@ -51,7 +51,7 @@ function renderUserTable(userList) {
 }
 
 function redirectAddUser(){
-		window.location.href = "/html/addUser.html";
+		window.location.href = "/html/userHTML/addUser.html";
 }
 
 loadUsers();

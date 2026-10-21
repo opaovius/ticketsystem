@@ -1,5 +1,5 @@
 function redirectCreateTicket() {
-    window.location.href = "/html/createTicket.html";
+    window.location.href = "/html/ticketHTML/createTicket.html";
 }
 
 async function createTicket() {
@@ -24,9 +24,9 @@ async function createTicket() {
 		return;
 	}
 	
-	window.location.href = "/html/ticketsTable.html";
+	window.location.href = "/html/ticketHTML/ticketsTable.html";
 }
 
 function cancel(){
-	window.location.href = "/html/ticketsTable.html";
+	window.location.href = "/html/ticketHTML/ticketsTable.html";
 }

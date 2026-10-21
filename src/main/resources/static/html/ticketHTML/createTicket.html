@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <link rel="stylesheet" href="/css/bootstrap.min.css">
-<link rel="stylesheet" href="/css/darkmode.css">
+<link rel="stylesheet" href="/css/generell.css">
 <head>
 <meta charset="UTF-8">
 <title>Neues Ticket</title>
@@ -18,12 +18,12 @@
 
 		<div class="mb-3">
 			<label for="header" class="form-label">Titel</label>
-			<input id="header" type="text" class="form-control" placeholder="Titel">
+			<input id="header" type="text" class="form-control" placeholder="Titel" required>
 		</div>
 
 		<div class="mb-3">
 			<label for="text" class="form-label">Ihre Anfrage</label>
-			<textarea id="text" class="form-control" rows="6" placeholder="Beschreiben Sie Ihr Anliegen"></textarea>
+			<textarea id="text" class="form-control" rows="6" placeholder="Beschreiben Sie Ihr Anliegen" required></textarea>
 		</div>
 		
 		<div>
@@ -33,6 +33,6 @@
 	</div>
 
 	<script src="/js/api.js"></script>
-	<script src="/js/createTicket.js"></script>
+	<script src="/js/ticketScripts/createTicket.js"></script>
 </body>
 </html>

@@ -110,7 +110,7 @@ function createHeaderLinkCell(ticket) {
     const td = document.createElement("td");
 
     const link = document.createElement("a");
-    link.href = `/html/ticketDetails.html?id=${ticket.id}`;
+    link.href = `/html/ticketHTML/ticketDetails.html?id=${ticket.id}`;
     link.textContent = ticket.header;
 
     td.appendChild(link);
@@ -118,7 +118,7 @@ function createHeaderLinkCell(ticket) {
 }
 
 function redirectToManageUsers(){
-		window.location.href = "/html/manageUsers.html";
+		window.location.href = "/html/userHTML/manageUsers.html";
 }
 
 loadTickets();

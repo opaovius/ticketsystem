@@ -17,5 +17,5 @@ async function closeTicket() {
         return;
     }
 	
-	window.location.href = "/html/ticketsTable.html";
+	window.location.href = "/html/ticketHTML/ticketsTable.html";
 }

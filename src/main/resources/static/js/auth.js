@@ -39,10 +39,10 @@ async function login() {
             console.log("PASSWORD_SET: " + passwordSet);
 
             if (passwordSet) {
-                window.location.href = "/html/ticketsTable.html";
+                window.location.href = "/html/ticketHTML/ticketsTable.html";
             }
             else {
-                window.location.href = "/html/setPassword.html";
+                window.location.href = "/html/userHTML/setPassword.html";
             }
 
         })

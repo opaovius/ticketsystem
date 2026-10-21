@@ -8,13 +8,13 @@ import lombok.ToString;
 @Data
 public class ChangePasswordRequest {
 	
-	@NotBlank(message = "Name is required")
-	@Size(min = 6, max = 30, message = "Name must be between 5 and 30 characters")
+	@NotBlank(message = "Old Password is required")
+	@Size(min = 6, max = 30, message = "Old Password must be between 6 and 30 characters")
 	@ToString.Exclude
 	private String oldPassword;
 	
-	@NotBlank(message = "Name is required")
-	@Size(min = 6, max = 30, message = "Name must be between 5 and 30 characters")
+	@NotBlank(message = "New Password is required")
+	@Size(min = 6, max = 30, message = "New Password must be between 6 and 30 characters")
 	@ToString.Exclude
 	private String newPassword;
 }

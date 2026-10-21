@@ -5,11 +5,11 @@
 <title>Ihr Ticket</title>
 </head>
 <link rel="stylesheet" href="/css/bootstrap.min.css">
-<link rel="stylesheet" href="/css/darkmode.css">
+<link rel="stylesheet" href="/css/generell.css">
 <body>
 
 	<div class="container">
-		<a href="/html/ticketsTable.html"
+		<a href="/html/ticketHTML/ticketsTable.html"
 			class="btn btn-outline-primary btn-sm mb-3">&larr; Zurück zur
 			Übersicht </a>
 
@@ -31,20 +31,20 @@
 		<div class="mb-3">
 			<label for="text" class="form-label">Hier antworten:</label>
 			<textarea id="text" class="form-control" placeholder="..."></textarea>
-			<button type="button" class="btn btn-primary" onclick="createReply()">Absenden</button>
+			<button type="button" class="btn btn-primary btn-hover btn-border-pr mt-2" onclick="createReply()">Absenden</button>
 		</div>
 
 		<div class="mb-3">
-			<button id="closeBtn" type="button" class="btn btn-danger"
-				onclick="closeTicket()">close</button>
+			<button id="closeBtn" type="button" class="btn btn-danger btn-hover btn-border-da"
+				onclick="closeTicket()">Auf Gelöst setzen</button>
 		</div>
 
 	</div>
 
 
 	<script src="/js/api.js"></script>
-	<script src="/js/loadTicket.js"></script>
-	<script src="/js/createReply.js"></script>
-	<script src="/js/closeTicket.js"></script>
+	<script src="/js/ticketScripts/loadTicket.js"></script>
+	<script src="/js/ticketScripts/createReply.js"></script>
+	<script src="/js/ticketScripts/closeTicket.js"></script>
 </body>
 </html>

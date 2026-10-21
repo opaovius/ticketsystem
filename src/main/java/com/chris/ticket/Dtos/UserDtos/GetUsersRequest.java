@@ -20,8 +20,8 @@ public class GetUsersRequest {
 	@Size(max = 30, message = "Name must be less than 30 characters")
 	private String name;
 
-	@NotBlank(message = "Name is required")
-	@Email(message = "email must be vaild")
+	@NotBlank(message = "Email is required")
+	@Email(message = "Email must be vaild")
 	private String email;
 	
 	@Enumerated(EnumType.STRING)
