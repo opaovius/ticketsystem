@@ -30,6 +30,13 @@ async function loadSingleTicket() {
         //ticket rendern
         document.getElementById("Header").textContent = ticket.header;
         document.getElementById("Text").textContent = ticket.text;
+		
+		if(ticket.status == "SOLVED"){
+			const sendAnswerCon = document.getElementById("sendAnswerCon");
+			const button = document.getElementById("closeBtn");
+			button.style.display = "none";
+			sendAnswerCon.style.display = "none";
+		}
 
     } catch (err) {
         console.error(err);

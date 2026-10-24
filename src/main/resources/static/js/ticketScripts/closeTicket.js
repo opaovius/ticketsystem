@@ -1,5 +1,9 @@
 async function closeTicket() {
 
+	if (!confirm("Möchtest du dieses Ticket wirklich schließen?")) {
+	    return;
+	}
+	
     //id aus der url holen
     const id = new URLSearchParams(window.location.search).get("id");
 

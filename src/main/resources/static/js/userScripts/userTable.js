@@ -5,7 +5,7 @@ async function loadUsers() {
         const sort = new URLSearchParams(window.location.search).get("sort") || "";
 
         const response = await fetchWithAuth(("/users?sort=") + encodeURIComponent(sort));
-		
+
         if (!response.ok) {
             throw new Error("Fehler beim Laden der Nutzer: " + response.status);
         }
@@ -44,14 +44,49 @@ function renderUserTable(userList) {
         const roleCell = document.createElement("td");
         roleCell.textContent = user.role;
 
-        row.append(idCell, nameCell, emailCell, roleCell);
+        const delBtnCell = createDeleteButtonCell(user.id);
+
+        row.append(idCell, nameCell, emailCell, roleCell, delBtnCell);
         tbody.appendChild(row);
     });
 
 }
 
-function redirectAddUser(){
-		window.location.href = "/html/userHTML/addUser.html";
+function createDeleteButtonCell(id) {
+
+    const btn = document.createElement("button");
+    const td = document.createElement("td");
+
+    btn.innerText = "Nutzer löschen";
+    btn.className = "btn btn-danger btn-hover btn-border-da";
+    btn.onclick = function() {
+        if (confirm("Möchtest du diesen Nutzer wirklich löschen?")) {
+            deleteUser(id);
+        }
+    };
+
+
+
+    td.append(btn);
+
+    return td;
+}
+
+function redirectAddUser() {
+    window.location.href = "/html/userHTML/addUser.html";
+}
+
+function deleteUser(id) {
+
+    fetchWithAuth(`/users/${id}`,
+        { method: "DELETE" })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("Nutzer konnte nicht gelöscht werden");
+            }
+            loadUsers();
+        })
+
 }
 
 loadUsers();
