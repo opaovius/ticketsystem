@@ -11,16 +11,17 @@
 			<h2>Meine Tickets</h2>
 			<button id="topButton" type="button" class="btn btn-primary btn-hover btn-border-pr"
 				onclick="redirectCreateTicket()">+ Ticket erstellen</button>
+			<button id="hideSolvedButton" type="button" class="btn btn-warning btn-hover btn-border-wa" onclick="showSolved()">Zeig Gelöste</button>
 			<button type="button" class="btn btn-danger btn-hover btn-border-da" onclick="logout()">Abmelden</button>
 		</div>
 
 		<div class="table-wrapper">
-			<table class="table table-hover align-middle mb-0">
+			<table id="ticketTable" class="table table-hover align-middle mb-0">
 				<thead class="table-light">
 					<tr>
-						<th>Titel</th>
-						<th>Beschreibung</th>
-						<th>Status</th>
+						<th data-key="header" role="button" class="user-select-none">Titel</th>
+						<th data-key="text" role="button" class="user-select-none">Beschreibung</th>
+						<th data-key="status" role="button" class="user-select-none">Status</th>
 					</tr>
 				</thead>
 				<tbody id="ticketTableBody"></tbody>

@@ -1,30 +1,37 @@
+let sortKey = null;
+let sortAsc = true;
+let tickets = [];
+let allTickets = [];
+const unsolvedTickets = [];
+const notSolvedTickets = [];
+
 async function loadTickets() {
     try {
         const role = getRoleFromToken();
         let endpoint;
-		
-		if(role == "ADMIN"){
-			endpoint = "/tickets/admin";
-		}
-		else if(role == "SUPPORT"){
-			endpoint = "/tickets/support";
-		}
-		else{
-			endpoint = "/tickets/customer";
-		}
-		
-		//Support soll keine tickets erstellen
-		if(role == "SUPPORT"){
-			const button = document.getElementById("topButton");
-			button.style.display = "none";
-		}
-		
-		//Admin soll Users verwalten koennen
-		if(role == "ADMIN"){
-			const button = document.getElementById("topButton");
-			button.textContent = "Nutzer Verwalten";
-			button.onclick = () => redirectToManageUsers();
-		}
+
+        if (role == "ADMIN") {
+            endpoint = "/tickets/admin";
+        }
+        else if (role == "SUPPORT") {
+            endpoint = "/tickets/support";
+        }
+        else {
+            endpoint = "/tickets/customer";
+        }
+
+        //Support soll keine tickets erstellen
+        if (role == "SUPPORT") {
+            const button = document.getElementById("topButton");
+            button.style.display = "none";
+        }
+
+        //Admin soll Users verwalten koennen
+        if (role == "ADMIN") {
+            const button = document.getElementById("topButton");
+            button.textContent = "Nutzer Verwalten";
+            button.onclick = () => redirectToManageUsers();
+        }
 
         const response = await fetchWithAuth(endpoint);
 
@@ -32,8 +39,9 @@ async function loadTickets() {
             throw new Error("Fehler beim Laden der Tickets: " + response.status);
         }
 
-        const tickets = await response.json();
-        renderTickets(tickets);
+        allTickets = await response.json();
+        splitUnsolvedTickets();
+        renderTickets();
 
     } catch (err) {
         console.error(err);
@@ -41,7 +49,7 @@ async function loadTickets() {
     }
 }
 
-function renderTickets(tickets) {
+function renderTickets() {
     const tbody = document.getElementById("ticketTableBody");
     tbody.innerHTML = "";
 
@@ -83,8 +91,8 @@ function createStatusCell(status) {
         WAITING_FOR_CUSTOMER: { label: "Wartet auf Kunde", css: "status-progress" },
         SOLVED: { label: "Gelöst", css: "status-closed" }
     };
-	
-	const role = getRoleFromToken();
+
+    const role = getRoleFromToken();
 
     //lookUp mit Fallback kombinieren
     const statusMap = role === "SUPPORT" ? statusMapSupport : statusMapCustomer;
@@ -117,8 +125,85 @@ function createHeaderLinkCell(ticket) {
     return td;
 }
 
-function redirectToManageUsers(){
-		window.location.href = "/html/userHTML/manageUsers.html";
+function redirectToManageUsers() {
+    window.location.href = "/html/userHTML/manageUsers.html";
 }
+
+function sortBy(key) {
+    // gleiche Spalte nochmal geklickt -> Richtung umdrehen
+    sortAsc = (sortKey === key) ? !sortAsc : true;
+    sortKey = key;
+
+    tickets.sort((a, b) => {
+        const x = a[key];
+        const y = b[key];
+        const statusOrder = { OPEN: 0, WAITING_FOR_SUPPORT: 1, WAITING_FOR_CUSTOMER: 2, SOLVED: 3 };
+
+        let result;
+        if (typeof x === 'number' && typeof y === 'number') {
+            result = x - y;
+        } else if (key === 'status') {
+            result = statusOrder[x] - statusOrder[y];
+        }
+        else {
+            result = String(x).localeCompare(String(y), 'de', { sensitivity: 'base' });
+        }
+        return sortAsc ? result : -result;
+    });
+
+    //Pfeile aktualisieren
+    document.querySelectorAll('#ticketTable thead th').forEach(th => {
+        if (th.dataset.key === key) {
+            th.dataset.sort = sortAsc ? 'asc' : 'desc';
+            th.setAttribute('aria-sort', sortAsc ? 'ascending' : 'descending');
+        } else {
+            th.removeAttribute('data-sort');
+            th.removeAttribute('aria-sort');
+        }
+    });
+
+    renderTickets();
+}
+
+//Erzeugt eine Liste mit ungelösten tickets
+function splitUnsolvedTickets() {
+
+    allTickets.forEach(ticket => {
+
+        if (!(ticket.status === "SOLVED")) {
+            unsolvedTickets.push(ticket);
+        }
+    })
+    tickets = unsolvedTickets
+}
+
+
+function showSolved() {
+
+    const solvedBtn = document.getElementById("hideSolvedButton");
+    solvedBtn.textContent = "Versteck Gelöste";
+    solvedBtn.onclick = hideSolved;
+    solvedBtn.className = "btn btn-warning btn-hover btn-border-wa";
+
+
+    tickets = allTickets;
+    renderTickets();
+}
+
+function hideSolved() {
+
+    const solvedBtn = document.getElementById("hideSolvedButton");
+    solvedBtn.textContent = "Zeig Gelöste";
+    solvedBtn.onclick = showSolved;
+    solvedBtn.className = "btn btn-warning btn-hover btn-border-wa";
+
+    tickets = unsolvedTickets;
+    renderTickets();
+}
+
+document.querySelectorAll('#ticketTable th').forEach(th => {
+    th.addEventListener('click', () => sortBy(th.dataset.key));
+});
+
 
 loadTickets();

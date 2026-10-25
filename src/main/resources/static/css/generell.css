@@ -13,26 +13,37 @@ table th {
 	margin-top: 40px;
 }
 
-.btn-border-pr {
-  outline: 2px solid transparent;
-  outline-offset: 0;
-  transition: outline-color 0.25s ease, outline-offset 0.25s ease;
+button.btn.btn-border-pr {
+	outline: 2px solid transparent;
+	outline-offset: 0;
+	transition: outline-color 0.25s ease, outline-offset 0.25s ease;
 }
 
-.btn-border-da {
-  outline: 2px solid transparent;
-  outline-offset: 0;
-  transition: outline-color 0.25s ease, outline-offset 0.25s ease;
+button.btn.btn-border-da {
+	outline: 2px solid transparent;
+	outline-offset: 0;
+	transition: outline-color 0.25s ease, outline-offset 0.25s ease;
 }
 
-.btn-border-da:hover {
-  outline-color: #800000;
-  outline-offset: 4px;
+button.btn.btn-border-wa {
+	outline: 2px solid transparent;
+	outline-offset: 0;
+	transition: outline-color 0.25s ease, outline-offset 0.25s ease;
 }
 
-.btn-border-pr:hover {
-  outline-color: #0d6efd;
-  outline-offset: 4px;
+button.btn.btn-border-da:hover {
+	outline-color: #800000;
+	outline-offset: 4px;
+}
+
+button.btn.btn-border-pr:hover {
+	outline-color: #0d6efd;
+	outline-offset: 4px;
+}
+
+button.btn.btn-border-wa:hover {
+	outline-color: #ffc107;
+	outline-offset: 4px;
 }
 
 .btn-hover {
@@ -88,4 +99,27 @@ table th {
 
 .dialog {
 	border-radius: 15px;
+}
+
+#ticketTable thead th:hover {
+	background-color: var(--bs-tertiary-bg);
+}
+
+/* Sortierpfeile */
+#ticketTable thead th::after {
+	content: " ↕";
+	color: var(--bs-secondary-color);
+	font-size: 1.5em;
+	line-height: 1;
+	margin-left: .25rem;
+}
+
+#ticketTable thead th[data-sort="asc"]::after {
+	content: " ↑";
+	color: inherit;
+}
+
+#ticketTable thead th[data-sort="desc"]::after {
+	content: " ↓";
+	color: inherit;
 }
