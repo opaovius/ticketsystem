@@ -41,6 +41,6 @@ Test-Password: 			password1 (bei allen drei gleich)
 
 # Zukunft
 
-- Visuelles Feedback bei falschen eingaben (Bisher nur bei F12 sichtbar)
-- Gelöste Tickets optional ausblenden können
-- Sortieren der Tickets zB nach Status
+- Ticket Erstelldatum hinzufügen
+- Suche nach Tickets über Titel und Text
+- Zuweisen von Tickets zu bestimmten Supportern von Admin
