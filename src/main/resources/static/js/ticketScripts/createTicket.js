@@ -1,3 +1,11 @@
+const createTicketForm = document.getElementById("createTicketForm");
+if (createTicketForm) {
+    createTicketForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        createTicket();
+    });
+}
+
 function redirectCreateTicket() {
     window.location.href = "/html/ticketHTML/createTicket.html";
 }

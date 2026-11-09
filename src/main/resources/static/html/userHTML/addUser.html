@@ -18,14 +18,14 @@
 
 			<form id="addUserForm" class="d-flex flex-column mt-3">
 
-				<input id="name" class="form-control" name="name" placeholder="Name">
-				<input id="email" class="form-control" name="email"
-					placeholder="Email"> <select class="form-select"
-					name="role">
+				<input id="name" class="form-control" name="name" placeholder="Name" required>
+				<input id="email" class="form-control" name="email" type="email"
+					placeholder="Email" required> <select class="form-select"
+					name="role" required>
 					<option value="" selected>Rolle auswählen</option>
 					<option value="CUSTOMER">Kunde</option>
 					<option value="SUPPORT">Supporter</option>
-					<option value="Admin">Admin</option>
+					<option value="ADMIN">Admin</option>
 
 				</select>
 

@@ -12,12 +12,12 @@
 		<div class="d-flex justify-content-between align-items-center mb-4">
 			<h2>Neues Ticket erstellen</h2>
 
-			<button type="button" class="btn btn-primary" onclick="createTicket()" >Absenden</button>
-
 		</div>
+		
+		<form id="createTicketForm">
 
 		<div class="mb-3">
-			<label for="header" class="form-label">Titel</label>
+			<label for="header" class="form-label" >Titel</label>
 			<input id="header" type="text" class="form-control" placeholder="Titel" required>
 		</div>
 
@@ -26,9 +26,12 @@
 			<textarea id="text" class="form-control" rows="6" placeholder="Beschreiben Sie Ihr Anliegen" required></textarea>
 		</div>
 		
-		<div>
-		<button type="button" class="btn btn-danger" onclick="cancel()">Abbruch</button>
-		</div>
+		
+		<button type="button" class="btn btn-danger btn-hover btn-border-da" onclick="cancel()">Abbruch</button>
+		
+		<button type="submit" class="btn btn-primary btn-hover btn-border-pr mx-3" >Absenden</button>
+		
+		</form>
 
 	</div>
 

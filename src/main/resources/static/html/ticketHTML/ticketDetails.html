@@ -29,13 +29,17 @@
 		<div id="replyList"></div>
 
 		<div id="sendAnswerCon" class="mb-3">
-			<label for="text" class="form-label">Hier antworten:</label>
-			<textarea id="text" class="form-control" placeholder="..."></textarea>
-			<button type="button" class="btn btn-primary btn-hover btn-border-pr mt-2" onclick="createReply()">Absenden</button>
+			<form id="createReplyForm">
+				<label for="text" class="form-label">Hier antworten:</label>
+				<textarea id="text" class="form-control" placeholder="..." required></textarea>
+				<button type="submit"
+					class="btn btn-primary btn-hover btn-border-pr mt-2">Absenden</button>
+			</form>
 		</div>
 
 		<div class="mb-3">
-			<button id="closeBtn" type="button" class="btn btn-danger btn-hover btn-border-da"
+			<button id="closeBtn" type="button"
+				class="btn btn-danger btn-hover btn-border-da"
 				onclick="closeTicket()">Auf Gelöst setzen</button>
 		</div>
 
@@ -44,7 +48,7 @@
 
 	<script src="/js/api.js"></script>
 	<script src="/js/ticketScripts/loadTicket.js"></script>
-	<script src="/js/ticketScripts/createReply.js"></script>
 	<script src="/js/ticketScripts/closeTicket.js"></script>
+	<script src="/js/ticketScripts/createReply.js"></script>
 </body>
 </html>

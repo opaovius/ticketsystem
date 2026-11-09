@@ -12,7 +12,7 @@ async function login() {
     const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;
 
-    fetch("/auth/login", {
+    response = await fetch("/auth/login", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -22,8 +22,22 @@ async function login() {
             password: password
         })
     })
-        .then(res => res.json())
+
+    if (!response.ok) {
+
+        const errorPara = document.getElementById("errorParagraph")
+
+        errorPara.textContent = "Email oder Passwort falsch!";
+        errorPara.style.color = "red";
+
+        console.error("Email oder Passwort falsch!")
+        return;
+    }
+
+    response.json()
         .then(async data => {
+
+            console.log(data);
 
             // JWT speichern
             localStorage.setItem("token", data.token);

@@ -1,3 +1,11 @@
+const createReplyForm = document.getElementById("createReplyForm");
+if (createReplyForm) {
+    createReplyForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        createReply();
+    });
+}
+
 async function createReply() {
 
     const text = document.getElementById("text").value;
