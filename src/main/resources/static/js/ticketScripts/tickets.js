@@ -4,6 +4,7 @@ let tickets = [];
 let allTickets = [];
 const unsolvedTickets = [];
 const notSolvedTickets = [];
+let hidden = true;
 
 async function loadTickets() {
     try {
@@ -184,7 +185,7 @@ function showSolved() {
     solvedBtn.textContent = "Versteck Gelöste";
     solvedBtn.onclick = hideSolved;
     solvedBtn.className = "btn btn-warning btn-hover btn-border-wa";
-
+    hidden = false;
 
     tickets = allTickets;
     renderTickets();
@@ -196,9 +197,37 @@ function hideSolved() {
     solvedBtn.textContent = "Zeig Gelöste";
     solvedBtn.onclick = showSolved;
     solvedBtn.className = "btn btn-warning btn-hover btn-border-wa";
+    hidden = true;
 
     tickets = unsolvedTickets;
     renderTickets();
+}
+
+function searchTickets() {
+
+    const searchKey = document.getElementById("searchForm").value.toLowerCase();
+    const filteredTickets = [];
+
+    console.log(searchKey);
+
+    if (hidden) {
+        for (let ticket of unsolvedTickets) {
+            if (ticket.header.toLowerCase().includes(searchKey) || ticket.text.toLowerCase().includes(searchKey)) {
+                filteredTickets.push(ticket);
+                console.log(ticket.header);
+            }
+        }
+    } else {
+        for (let ticket of allTickets) {
+            if (ticket.header.toLowerCase().includes(searchKey) || ticket.text.toLowerCase().includes(searchKey)) {
+                filteredTickets.push(ticket);
+            }
+        }
+    }
+
+	tickets = filteredTickets;
+	renderTickets();
+
 }
 
 document.querySelectorAll('#ticketTable th').forEach(th => {

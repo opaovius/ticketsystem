@@ -9,10 +9,21 @@
 	<div class="container">
 		<div class="d-flex justify-content-between align-items-center">
 			<h2>Meine Tickets</h2>
-			<button id="topButton" type="button" class="btn btn-primary btn-hover btn-border-pr"
+			<button id="topButton" type="button"
+				class="btn btn-primary btn-hover btn-border-pr"
 				onclick="redirectCreateTicket()">+ Ticket erstellen</button>
-			<button id="hideSolvedButton" type="button" class="btn btn-warning btn-hover btn-border-wa" onclick="showSolved()">Zeig Gelöste</button>
-			<button type="button" class="btn btn-danger btn-hover btn-border-da" onclick="logout()">Abmelden</button>
+			<button id="hideSolvedButton" type="button"
+				class="btn btn-warning btn-hover btn-border-wa"
+				onclick="showSolved()">Zeig Gelöste</button>
+			<button type="button" class="btn btn-danger btn-hover btn-border-da"
+				onclick="logout()">Abmelden</button>
+		</div>
+
+		<div class="container d-flex">
+			<textarea id="searchForm" class="form-control" placeholder="Suche..."
+				required></textarea>
+			<button id="searchButton" type="button"
+				class="btn btn-warning btn-hover btn-border-wa mx-2" onclick="searchTickets()">Suchen</button>
 		</div>
 
 		<div class="table-wrapper">
